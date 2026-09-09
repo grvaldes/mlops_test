@@ -11,7 +11,7 @@ from material_mlops.models.baseline import evaluate_model, train_model
 DATA_PATH = Path("data/raw/concrete.xls")
 
 
-def run_training(data_path: Path) -> dict[str, float]:
+def run_training(data_path: Path):
     """Run the complete model training and evaluation pipeline."""
     data = load_raw_data(data_path)
 
@@ -30,15 +30,17 @@ def run_training(data_path: Path) -> dict[str, float]:
 
     model = train_model(X_train, y_train)
 
-    return evaluate_model(
+    metrics = evaluate_model(
         model,
         X_test,
         y_test,
     )
 
+    return model, metrics
+
 
 def main() -> None:
-    metrics = run_training(DATA_PATH)
+    model, metrics = run_training(DATA_PATH)
 
     print("Model evaluation:")
 

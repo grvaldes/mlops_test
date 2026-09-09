@@ -11,3 +11,7 @@ wheels/
 
 # MacOS annoyances
 *.DS_Store
+
+# Joblib
+/models
+/mlruns
