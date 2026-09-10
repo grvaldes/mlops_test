@@ -50,7 +50,35 @@ jobs:
         run: docker compose build api
 
       - name: Start services
-        run: docker compose up -d mlflow api
+        run: docker compose up -d mlflow
+
+      - name: Wait for MLflow
+        run: |
+          for i in {1..30}; do
+            if docker compose exec -T mlflow \
+              python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"
+            then
+              echo "MLflow is healthy"
+              exit 0
+            fi
+
+            echo "Waiting for MLflow..."
+            sleep 2
+          done
+
+          echo "MLflow failed to become healthy"
+          docker compose logs mlflow
+          exit 1
+
+      - name: Train and register model
+        run: |
+          docker compose run --rm \
+            -e MLFLOW_TRACKING_URI=http://mlflow:5000 \
+            api \
+            uv run material-mlops
+
+      - name: Start API
+        run: docker compose up -d api
 
       - name: Wait for API
         run: |
