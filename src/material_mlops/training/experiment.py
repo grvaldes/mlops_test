@@ -1,6 +1,3 @@
-from pathlib import Path
-
-import joblib
 import mlflow
 import mlflow.sklearn
 
@@ -9,10 +6,9 @@ from material_mlops.training.train import DATA_PATH, run_training
 
 EXPERIMENT_NAME = "concrete-strength-baseline"
 MODEL_NAME = "concrete-strength-model"
-MODEL_PATH = Path("models/concrete_strength_model.joblib")
-
 
 def main() -> None:
+    mlflow.set_tracking_uri("http://mlflow:5000")
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     with mlflow.start_run() as run:
@@ -29,9 +25,6 @@ def main() -> None:
             "model",
             registered_model_name=MODEL_NAME,
         )
-
-        MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-        joblib.dump(model, MODEL_PATH)
 
         print(f"Run ID: {run.info.run_id}")
         print("Model evaluation:")

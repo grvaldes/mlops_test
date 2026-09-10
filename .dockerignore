@@ -1,0 +1,19 @@
+# Git
+.git
+.gitignore
+
+# Cache
+__pycache__
+*.pyc
+.pytest_cache
+
+# Virtual environments
+.venv
+
+# MacOS
+.DS_Store
+
+# Joblib
+models/
+mlflow.db
+mlruns/

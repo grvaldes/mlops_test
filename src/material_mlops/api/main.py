@@ -1,18 +1,28 @@
-import joblib
+import os
+
+import mlflow
+import mlflow.sklearn
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 
-MODEL_PATH = "models/concrete_strength_model.joblib"
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "http://localhost:5001",
+)
 
-model = joblib.load(MODEL_PATH)
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+
+MODEL_URI = "models:/concrete-strength-model/1"
+
+model = mlflow.sklearn.load_model(MODEL_URI)
+
 
 app = FastAPI(
     title="Concrete Strength Prediction API",
     version="0.1.0",
 )
-
 
 class ConcreteInput(BaseModel):
     cement: float
