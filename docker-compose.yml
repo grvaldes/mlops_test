@@ -5,8 +5,6 @@ services:
       - "5001:5000"
     environment:
       MLFLOW_SERVER_ALLOWED_HOSTS: "*"
-    volumes:
-      - mlflow_data:/mlflow
     command:
       - mlflow
       - server
@@ -16,8 +14,8 @@ services:
       - "5000"
       - --backend-store-uri
       - sqlite:////mlflow/mlflow.db
-      - --artifacts-destination
-      - /mlflow/artifacts
+      - --default-artifact-root
+      - s3://gabriel-material-mlops-mlflow/mlflow
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
       interval: 5s
@@ -39,6 +37,3 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
-
-volumes:
-  mlflow_data:
