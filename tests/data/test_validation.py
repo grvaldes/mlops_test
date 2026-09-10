@@ -2,12 +2,12 @@ import pandas as pd
 import pytest
 
 from material_mlops.data.processing import PROCESSED_COLUMNS
-from material_mlops.data.validation import RAW_COLUMNS
 from material_mlops.data.validation import (
+    RAW_COLUMNS,
     validate_columns,
     validate_no_missing_values,
-    validate_numeric,
     validate_not_empty,
+    validate_numeric,
 )
 
 
@@ -26,11 +26,7 @@ def test_validate_columns_accepts_valid_data():
 
 def test_validate_columns_rejects_invalid_columns():
     data = make_valid_data()
-    data = data.rename(
-        columns={
-            RAW_COLUMNS[0]: "wrong_name"
-        }
-    )
+    data = data.rename(columns={RAW_COLUMNS[0]: "wrong_name"})
 
     with pytest.raises(ValueError):
         validate_columns(data)

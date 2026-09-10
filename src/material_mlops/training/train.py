@@ -7,7 +7,6 @@ from material_mlops.data.processing import process_data, split_features_target
 from material_mlops.data.validation import validate_dataset
 from material_mlops.models.baseline import evaluate_model, train_model
 
-
 DATA_PATH = Path("data/raw/concrete.xls")
 
 
@@ -40,7 +39,7 @@ def run_training(data_path: Path):
 
 
 def main() -> None:
-    model, metrics = run_training(DATA_PATH)
+    _model, metrics = run_training(DATA_PATH)
 
     print("Model evaluation:")
 

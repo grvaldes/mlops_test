@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 PROCESSED_COLUMNS = [
     "cement",
     "blast_furnace_slag",

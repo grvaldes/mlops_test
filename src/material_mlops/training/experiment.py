@@ -3,9 +3,9 @@ import mlflow.sklearn
 
 from material_mlops.training.train import DATA_PATH, run_training
 
-
 EXPERIMENT_NAME = "concrete-strength-baseline"
 MODEL_NAME = "concrete-strength-model"
+
 
 def main() -> None:
     mlflow.set_tracking_uri("http://mlflow:5000")

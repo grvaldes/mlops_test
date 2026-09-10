@@ -6,7 +6,6 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-
 MLFLOW_TRACKING_URI = os.getenv(
     "MLFLOW_TRACKING_URI",
     "http://localhost:5001",
@@ -23,6 +22,7 @@ app = FastAPI(
     title="Concrete Strength Prediction API",
     version="0.1.0",
 )
+
 
 class ConcreteInput(BaseModel):
     cement: float
@@ -63,6 +63,4 @@ def predict(data: ConcreteInput) -> PredictionResponse:
 
     prediction = model.predict(features)[0]
 
-    return PredictionResponse(
-        compressive_strength=float(prediction)
-    )
+    return PredictionResponse(compressive_strength=float(prediction))

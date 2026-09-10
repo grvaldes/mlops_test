@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 RAW_COLUMNS = [
     "Cement (component 1)(kg in a m^3 mixture)",
     "Blast Furnace Slag (component 2)(kg in a m^3 mixture)",
@@ -20,9 +19,7 @@ def validate_columns(data: pd.DataFrame) -> None:
 
     if actual_columns != RAW_COLUMNS:
         raise ValueError(
-            f"Unexpected columns.\n"
-            f"Expected: {RAW_COLUMNS}\n"
-            f"Actual: {actual_columns}"
+            f"Unexpected columns.\nExpected: {RAW_COLUMNS}\nActual: {actual_columns}"
         )
 
 
@@ -50,7 +47,7 @@ def validate_not_empty(data: pd.DataFrame) -> None:
     """Validate that the dataset contains at least one row."""
     if data.empty:
         raise ValueError("Dataset is empty.")
-    
+
 
 def validate_dataset(data: pd.DataFrame) -> None:
     """Run all dataset validation checks."""
