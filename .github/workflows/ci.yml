@@ -33,3 +33,14 @@ jobs:
 
       - name: Check formatting
         run: uv run ruff format --check .
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t material-mlops .
